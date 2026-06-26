@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dia da Semana</title>
+</head>
+<body>
+  <weekday-component></weekday-component>
+
+  <script type="module">
+    import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
+
+    class WeekdayComponent extends LitElement {
+      static properties = {
+        currentTime: { type: Number }
+      };
+
+      static styles = css`
+        .date-timer {
+          font-size: 30px;
+          font-weight: bold;
+          color: white;
+          border-radius: 10px;
+          padding: 20px;
+          font-family: 'RenaultGroupAH', 'Arial', sans-serif;
+        }
+
+        .date-timer span {
+          display: inline-block; 
+        }
+
+        .date-timer span::first-letter {
+            text-transform: uppercase;
+          }
+      `;
+
+      constructor() {
+        super();
+        this.currentTime = Date.now();
+        this._timerId = null;
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        this._timerId = setInterval(() => {
+          this.currentTime = Date.now();
+        }, 60000);
+      }
+
+      disconnectedCallback() {
+        super.disconnectedCallback();
+        clearInterval(this._timerId);
+      }
+
+      render() {
+        return html`
+          <div class="date-timer">
+            <span>${new Intl.DateTimeFormat('pt-BR', {
+              weekday: 'long',
+              timeZone: 'America/Sao_Paulo',
+            }).format(this.currentTime)}</span>
+          </div>
+        `;
+      }
+    }
+
+    customElements.define('weekday-component', WeekdayComponent);
+  </script>
+</body>
+</html>
