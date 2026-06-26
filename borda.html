@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Borda Responsiva</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .border-frame {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      border: max(1px, 0.4vmin) solid rgb(255, 0, 0);
+      border-radius: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <div class="border-frame"></div>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const size = params.get('size');
+    if (size) {
+      const px = Math.max(1, parseFloat(size));
+      document.querySelector('.border-frame').style.borderWidth = px + 'px';
+    }
+  </script>
+</body>
+</html>
