@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dia da Semana</title>
+  <style>
+    body { overflow: hidden; }
+  </style>
+  <script>
+    const size = new URLSearchParams(window.location.search).get('size');
+    if (size) document.documentElement.style.setProperty('--font-size', parseFloat(size) + 'px');
+  </script>
 </head>
 <body>
   <weekday-component></weekday-component>
@@ -18,7 +25,7 @@
 
       static styles = css`
         .date-timer {
-          font-size: 30px;
+          font-size: var(--font-size, 30px);
           font-weight: bold;
           color: white;
           border-radius: 10px;
