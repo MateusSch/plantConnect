@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dia da Semana</title>
+  <title>Data</title>
   <style>
     body { overflow: hidden; }
   </style>
@@ -13,12 +13,12 @@
   </script>
 </head>
 <body>
-  <weekday-component></weekday-component>
+  <date-component></date-component>
 
   <script type="module">
     import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
 
-    class WeekdayComponent extends LitElement {
+    class DateComponent extends LitElement {
       static properties = {
         currentTime: { type: Number }
       };
@@ -32,14 +32,6 @@
           padding: 20px;
           font-family: 'NouvelR', 'Arial', sans-serif;
         }
-
-        .date-timer span {
-          display: inline-block; 
-        }
-
-        .date-timer span::first-letter {
-            text-transform: uppercase;
-          }
       `;
 
       constructor() {
@@ -64,7 +56,9 @@
         return html`
           <div class="date-timer">
             <span>${new Intl.DateTimeFormat('pt-BR', {
-              weekday: 'long',
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric',
               timeZone: 'America/Sao_Paulo',
             }).format(this.currentTime)}</span>
           </div>
@@ -72,7 +66,7 @@
       }
     }
 
-    customElements.define('weekday-component', WeekdayComponent);
+    customElements.define('date-component', DateComponent);
   </script>
 </body>
 </html>
